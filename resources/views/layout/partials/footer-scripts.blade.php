@@ -27,7 +27,7 @@
 
         $.notify({
             icon: 'ti-gift',
-            message: "Welcome to <b>Paper Dashboard</b> - a beautiful Bootstrap freebie for your next project."
+            message: "You are now logged in {{ Auth::user()->name }}."
 
         },{
             type: 'success',
