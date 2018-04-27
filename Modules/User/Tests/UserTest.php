@@ -25,6 +25,7 @@ class UserTest extends TestCase
      */
     public function testAuthUser()
     {
+        // stub
         $this->assertTrue(true);
     }
 }

@@ -60,8 +60,15 @@ interface LicenseRepositoryInterface
      */
     public function delete($id);
 
+    /**
+     * @param $status
+     * @return mixed
+     */
     public function getTotalLicenses($status);
 
+    /**
+     * @return mixed
+     */
     public function getLicensesStats();
 
 }

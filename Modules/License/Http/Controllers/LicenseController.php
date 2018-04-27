@@ -24,12 +24,13 @@ class LicenseController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
-    {
+    public function index(){
         $licenses  = $this->licenseRepo->findAll();
         if($licenses){
             return view('license::index',['licenses'=>$licenses]);
         }
+        flash('No Available License')->error();
+        return view('license::missing_license');
     }
 
     /**
@@ -48,6 +49,7 @@ class LicenseController extends Controller
      */
     public function store(Request $request)
     {
+        /** TODO: To be implemented */
     }
 
     /**
@@ -57,13 +59,13 @@ class LicenseController extends Controller
     public function show($id)
     {
         $license = $this->licenseRepo->find($id);
-        //change this to repository controls
+        /** TODO: change this to repository pattern  */
         $states = States::all();
-
         return view('license::update',['id'=>$id,'license'=>$license, 'states'=>$states]);
     }
 
     /**
+     * Update License Controller Action
      * @param $id
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -85,7 +87,6 @@ class LicenseController extends Controller
         }
         flash('An error occurred')->warning();
         return redirect()->route('license');
-
     }
 
     /**
@@ -94,9 +95,15 @@ class LicenseController extends Controller
      */
     public function destroy()
     {
+        /** Todo implement soft delete License */
         return null;
     }
 
+    /**
+     * Send Email Report to specified email
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function sendReport(Request $request){
         $data = $request->post();
         if(!empty($data)){
@@ -111,6 +118,5 @@ class LicenseController extends Controller
         }
         flash('An Error Occurred! Please try again')->error();
         return redirect()->route('user');
-
     }
 }

@@ -24,11 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $licenses  = $this->licenseRepo->findAll();
-        $licenses_stats = $this->licenseRepo->getLicensesStats();
-        if($licenses) {
-            return view('user::dashboard', ['licenses' => $licenses,'licenses_stat'=>$licenses_stats]);
-        }
+        return view('user::index');
     }
 
     /**
@@ -47,6 +43,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        //stub
     }
 
     /**
@@ -74,6 +71,7 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
+        //stub
     }
 
     /**
@@ -82,5 +80,6 @@ class UserController extends Controller
      */
     public function destroy()
     {
+        //stub
     }
 }

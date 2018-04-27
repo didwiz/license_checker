@@ -15,15 +15,14 @@ class LicenseDatabaseSeeder extends Seeder
      *
      * @return void
      */
+    const GENERATED_DATA_LIMIT=5;
     public function run()
     {
         Model::unguard();
 
         // $this->call("OthersTableSeeder");
 
-        $faker = \Faker\Factory::create();
-
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < self::GENERATED_DATA_LIMIT; $i++) {
             factory(License::class)->create();
         }
     }

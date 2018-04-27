@@ -57,21 +57,19 @@ class LicenseExpiry extends Command
             foreach ($valid_licenses as $license){
                 $expiry_date = Carbon::parse($license->expiry_date);
                 $days_left_to_expiration = $now->diffInDays($expiry_date);
-                echo $days_left_to_expiration."\n";
+//                echo $days_left_to_expiration."\n";
                 if($days_left_to_expiration <= License::EXPIRATION_DAYS_NOTICE){
                     $licenses_expiring[] = $license;
                 }
             }
             //trigger an email event here
             if(!empty($licenses_expiring)){
-                $recipient = 'didwiz83@gmail.com';
+                $recipient = 'didwiz83@gmail.com,mario@dettlaffinc.com';
                 App\EmailMessages::sendExpiryNotice($licenses_expiring,$recipient);
-//                Mail::to('didwiz83@gmail.com')->send(new Notification($licenses_expiring));
+                echo "Mail(s) Sent Out!";
             }
-
-            var_dump($licenses_expiring);
         }
-        var_dump($licenses_expiring);
+        echo "No Data To Process \n";
     }
 
     /**

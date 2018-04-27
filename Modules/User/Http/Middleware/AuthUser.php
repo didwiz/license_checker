@@ -18,7 +18,6 @@ class AuthUser
     {
 
         $response = $next($request);
-        dd(Auth::check());
         if (!Auth::check()) {
             return redirect()->route('login');
         }

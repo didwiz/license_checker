@@ -33,7 +33,9 @@ class LicenseTest extends TestCase
         $this->licenseRepo = new LicenseRepository($this->license);
     }
 
-
+    /**
+     *  Test Create License
+     */
     public function testCreateLicense(){
 
         $license = [
@@ -55,7 +57,9 @@ class LicenseTest extends TestCase
         $this->assertEquals($license['state_id'], $license_new->state_id);
     }
 
-
+    /**
+     * List Update License
+     */
     public function testUpdateLicense(){
 
         $id = 1;
@@ -78,23 +82,25 @@ class LicenseTest extends TestCase
     }
 
     public function testUpdateLicenseFailed(){
+        //test stub
         $this->assertTrue(true);
     }
 
     public function testGetALLLicenses(){
-
+        // test stub
         $licenses = $this->licenseRepo->findAll();
         $this->assertInstanceOf(Collection::class,$licenses);
     }
 
     public function testGetLicense(){
+        // test stub
         $id = 1;
         $license = $this->licenseRepo->find($id);
         $this->assertInstanceOf(License::class, $license);
     }
 
     public function testRevokeLicense(){
+        // test stub
         $this->assertTrue(true);
     }
-
 }

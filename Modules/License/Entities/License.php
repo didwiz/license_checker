@@ -37,6 +37,10 @@ class License extends Model
         self::LICENSE_EXPIRING_SOON =>'License Expiring Soon'
     ];
 
+    /**
+     * 1:1 relationship between licenses and states
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function state(){
         return $this->belongsTo('\Modules\License\Entities\States');
     }
@@ -48,18 +52,38 @@ class License extends Model
         return static::all();
     }
 
+    /**
+     * This converts the status attribute from a number to the appropriate status name
+     * @param $status
+     * @return mixed
+     */
     public function getStatusAttribute($status){
         return self::statuses[$status];
     }
 
+    /**
+     * Returns one License based on a given ID
+     * @param $id
+     * @return mixed
+     */
     public function findLicense($id){
         return static::find($id);
     }
 
+    /**
+     * Create new License from an array of data
+     * @param array $data
+     * @return mixed
+     */
     public function createLicense(array $data){
         return static::create($data);
     }
 
+    /**
+     * Revoke License based on given license ID
+     * @param $id
+     * @return bool
+     */
     public function RevokeLicense($id){
 
         $license = License::where('id', $id)->update('status',self::LICENSE_REVOKED);
@@ -67,24 +91,24 @@ class License extends Model
             return true;
         }
         return false;
-//
-//        $license = static::find($id);
-//        if($license){
-//            $license->statuse = self::LICENSE_REVOKED;
-//            if($license->save()){
-//                return true;
-//            }
-//            return false;
-//        }
-//        return false;
-
     }
 
+    /**
+     *  Retrieve total number of licenses available based on status
+     * @param $status
+     * @return int
+     */
     public function getTotalLicenses($status){
         $licenses_total  = License::where('status', $status)->get()->count();
         return $licenses_total ?? 0;
     }
 
+    /**
+     *  Update given license
+     * @param $id
+     * @param $data
+     * @return bool
+     */
     public function edit($id,$data)
     {
         $license = License::where('id', $id)->update($data);
