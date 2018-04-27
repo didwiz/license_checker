@@ -86,4 +86,13 @@ class LicenseRepository implements LicenseRepositoryInterface
          }
          return $license_stats;
     }
+
+    /**
+     * Revoke license
+     * @param $id
+     * @return bool
+     */
+    public function revokeLicense($id){
+        return $this->license->revokeLicense($id);
+    }
 }

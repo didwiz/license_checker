@@ -119,4 +119,28 @@ class LicenseController extends Controller
         flash('An Error Occurred! Please try again')->error();
         return redirect()->route('user');
     }
+
+    /**
+     * Action to revoke license
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function revokeLicense($id){
+
+        if(isset($id)){
+            try{
+                $status = $this->licenseRepo->revokeLicense($id);
+                if($status){
+                    flash('License Successfully Revoked')->success();
+                    return redirect()->route('user');
+                }
+            }catch (\ErrorException $ex){
+                Log::error("update failed with Exception:",$ex->getMessage());
+                flash('Could Not Revoke License')->error();
+                return redirect()->route('user');
+            }
+        }
+        flash('Could Not Revoke License, No data passed')->error();
+        return redirect()->route('user');
+    }
 }

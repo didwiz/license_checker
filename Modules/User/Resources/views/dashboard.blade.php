@@ -62,7 +62,7 @@
                             <p class="category">States & Licenses</p>
                         </div>
                         <div style="padding: 20px;">
-                            <form method="post" action="license/sendreport">
+                            <form method="post" action="/license/sendreport">
                                 {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-md-3">
@@ -103,8 +103,8 @@
                                         @else
                                             <td style="color:red"><i class="fas fa-times-circle"></i>&ensp;&ensp;{{ $license->status }}</td>
                                         @endif
-                                        <td><a class="btn btn-default btn-sm" href="license/edit/{{ $license->id }}">Edit</a></td>
-                                        <td><a class="btn btn-danger btn-sm" href="license/revoke/{{ $license->id }}">Revoke License</a></td>
+                                        <td><a class="btn btn-default btn-sm" href="/license/edit/{{ $license->id }}">Edit</a></td>
+                                        <td><a class="btn btn-danger btn-sm" href="/license/revoke/{{ $license->id }}">Revoke License</a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

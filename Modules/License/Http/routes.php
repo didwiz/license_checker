@@ -5,6 +5,6 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'license', 'namespace'
     Route::get('/', 'LicenseController@index')->name('license');
     Route::post('update/{id}', 'LicenseController@update')->name('update');
     Route::get('edit/{id}', 'LicenseController@show');
-    Route::post('revoke/{id}', 'LicenseController@revoke');
+    Route::get('revoke/{id}', 'LicenseController@revokeLicense');
     Route::post('sendreport', 'LicenseController@sendReport');
 });

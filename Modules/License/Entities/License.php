@@ -84,9 +84,9 @@ class License extends Model
      * @param $id
      * @return bool
      */
-    public function RevokeLicense($id){
+    public function revokeLicense($id){
 
-        $license = License::where('id', $id)->update('status',self::LICENSE_REVOKED);
+        $license = License::where('id', $id)->update(['status'=>self::LICENSE_REVOKED]);
         if($license){
             return true;
         }

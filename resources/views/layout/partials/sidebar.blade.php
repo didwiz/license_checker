@@ -16,7 +16,7 @@
 
             <ul class="nav">
                 <li class="active">
-                    <a href="/user">
+                    <a href="/user/dashboard">
                         <i class="ti-panel"></i>
                         <p>Dashboard</p>
                     </a>
