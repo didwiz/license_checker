@@ -7,6 +7,7 @@ Dear customer,
 <div>
     <table class="table" border="1">
         <thead>
+        <th>ID</th>
         <th>State</th>
         <th>License Number</th>
         <th>Expiration Date</th>
@@ -15,6 +16,7 @@ Dear customer,
         <tbody>
         @foreach($data as $license)
             <tr>
+                <td>{{ $license->id }}</td>
                 <td>{{ $license->state->name }}</td>
                 <td>{{ $license->number }}</td>
                 <td>{{ $license->expiry_date }}</td>

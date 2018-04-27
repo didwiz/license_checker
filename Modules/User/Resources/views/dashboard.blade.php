@@ -16,12 +16,12 @@
                                         @switch($key)
                                         @case($key == "License Expired")
                                         <div class="icon-big icon-danger text-center">
-                                            <i class="ti-alert"></i>
+                                            <i class="ti-stats-down"></i>
                                         </div>
                                         @break
                                         @case($key == "License Revoked")
                                         <div class="icon-big icon-danger text-center">
-                                            <i class="ti-close"></i>
+                                            <i class="ti-na"></i>
                                         </div>
                                         @break
                                         @case($key == "License Invalid")

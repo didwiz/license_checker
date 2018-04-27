@@ -26,7 +26,6 @@ class UserController extends Controller
     {
         $licenses  = $this->licenseRepo->findAll();
         $licenses_stats = $this->licenseRepo->getLicensesStats();
-//        dd($licenses_stats);
         if($licenses) {
             return view('user::dashboard', ['licenses' => $licenses,'licenses_stat'=>$licenses_stats]);
         }
