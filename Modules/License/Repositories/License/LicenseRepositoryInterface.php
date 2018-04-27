@@ -41,7 +41,7 @@ interface LicenseRepositoryInterface
      * @param  array  $data
      * @return \Modules\License\Entities\License
      */
-    public function create(array $data);
+    public function createLicense(array $data);
 
     /**
      * Updates the license entry with the given data.

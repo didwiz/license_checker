@@ -56,6 +56,9 @@ class License extends Model
         return static::find($id);
     }
 
+    public function createLicense(array $data){
+        return static::create($data);
+    }
 
     public function RevokeLicense($id){
 

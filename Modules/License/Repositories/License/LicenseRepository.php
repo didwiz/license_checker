@@ -33,8 +33,9 @@ class LicenseRepository implements LicenseRepositoryInterface
         return $this->license->delete($id);
     }
 
-    public function create(array $data){
+    public function createLicense(array $data){
         // TODO: Implement create() method.
+        return $this->license->create($data);
     }
 
     public function update($id, array $data){
