@@ -23,16 +23,8 @@ class LicenseDatabaseSeeder extends Seeder
 
         $faker = \Faker\Factory::create();
 
-        for($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             factory(License::class)->create();
-//            License::create([
-//                'number' =>Util::randStringGenerator(15),
-//                'name' => $faker->name,
-//                'subscription_date' => $faker->date(),
-//                'expiry_date' => $faker->date(),
-//                'status' => $faker->biasedNumberBetween($min = 0, $max = 6),
-//                'state_id' => $faker->biasedNumberBetween($min = 0, $max = 50),
-//            ]);
         }
     }
 }
