@@ -35,7 +35,8 @@ class LicenseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('Modules\License\Repositories\License\LicenseRepositoryInterface',
+            'Modules\License\Repositories\License\LicenseRepository');
     }
 
     /**

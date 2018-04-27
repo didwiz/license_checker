@@ -1,4 +1,5 @@
 <div class="main-panel">
+    @include('flash::message')
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">

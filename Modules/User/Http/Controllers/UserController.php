@@ -5,16 +5,31 @@ namespace Modules\User\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\License\Repositories\License\LicenseRepositoryInterface as LicenseRepoInterface;
 
 class UserController extends Controller
 {
+
+
+    private $licenseRepo;
+
+    public function __construct(LicenseRepoInterface $licenseRepository)
+    {
+        $this->licenseRepo = $licenseRepository;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return view('user::dashboard');
+        $licenses  = $this->licenseRepo->findAll();
+        $licenses_stats = $this->licenseRepo->getLicensesStats();
+//        dd($licenses_stats);
+        if($licenses) {
+            return view('user::dashboard', ['licenses' => $licenses,'licenses_stat'=>$licenses_stats]);
+        }
     }
 
     /**

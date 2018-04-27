@@ -20,19 +20,22 @@
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="assets/js/demo.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function(){
+{{--<script type="text/javascript">--}}
+    {{--$(document).ready(function(){--}}
 
-        demo.initChartist();
+        {{--demo.initChartist();--}}
 
-        $.notify({
-            icon: 'ti-gift',
-            message: "You are now logged in {{ Auth::user()->name }}."
+        {{--$.notify({--}}
+            {{--icon: 'ti-gift',--}}
+            {{--message: "You are now logged in ."--}}
 
-        },{
-            type: 'success',
-            timer: 4000
-        });
+        {{--},{--}}
+            {{--type: 'success',--}}
+            {{--timer: 4000--}}
+        {{--});--}}
 
-    });
+    {{--});--}}
+{{--</script>--}}
+<script>
+    $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 </script>

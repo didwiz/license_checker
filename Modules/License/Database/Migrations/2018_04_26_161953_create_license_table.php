@@ -13,11 +13,18 @@ class CreateLicenseTable extends Migration
      */
     public function up()
     {
-        Schema::create('license', function (Blueprint $table) {
-            $table->increments('id');
-
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('license')) {
+            Schema::create('license', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('state_id');
+                $table->string('number',191)->unique();
+                $table->string('name')->nullable();
+                $table->date('subscription_date');
+                $table->date('expiry_date');
+                $table->integer('status')->default(0);
+                $table->timestamps();
+            });
+        }
     }
 
     /**

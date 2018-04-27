@@ -176,6 +176,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Modules\License\Providers\LicenseServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
+        Snowfire\Beautymail\BeautymailServiceProvider::class,
 
     ],
 
