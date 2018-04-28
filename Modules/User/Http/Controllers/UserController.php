@@ -5,24 +5,38 @@ namespace Modules\User\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\License\Repositories\License\LicenseRepositoryInterface as LicenseRepoInterface;
 
 class UserController extends Controller
 {
+
+
+    private $licenseRepo;
+
+    public function __construct(LicenseRepoInterface $licenseRepository)
+    {
+        $this->licenseRepo = $licenseRepository;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
-    {
-        return view('user::dashboard');
+    public function index(){
+        $licenses  = $this->licenseRepo->findAll();
+        $licenses_stats = $this->licenseRepo->getLicensesStats();
+        if($licenses) {
+            return view('user::dashboard', ['licenses' => $licenses,'licenses_stat'=>$licenses_stats]);
+        }
+        flash('No Available License(s) Found')->error();
+        return view('license::missing_license');
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
-    {
+    public function create(){
         return view('user::create');
     }
 
@@ -31,16 +45,15 @@ class UserController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
+        // stub
     }
 
     /**
      * Show the specified resource.
      * @return Response
      */
-    public function show()
-    {
+    public function show(){
         return view('user::show');
     }
 
@@ -48,8 +61,7 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
-    {
+    public function edit(){
         return view('user::edit');
     }
 
@@ -60,6 +72,7 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
+        //stub
     }
 
     /**
@@ -68,5 +81,6 @@ class UserController extends Controller
      */
     public function destroy()
     {
+        //stub
     }
 }
