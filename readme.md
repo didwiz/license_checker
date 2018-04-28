@@ -3,7 +3,11 @@
 
 Basic app to track license and send daily notice.
 
-Features 
+## Screenshots
+
+![Screenshot_dashboard](licensetracker.png)
+
+## Features 
 - dashboard
 - license listing
 - revoke license
