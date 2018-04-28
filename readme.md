@@ -20,7 +20,7 @@ Features
 
 ## Hosted on AWS
 
-View project here
+View project here: pending aws account activation.
 
 ## Possible Improvements 
 - More tests.
