@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 29, 2018 at 04:16 PM
+-- Generation Time: May 04, 2018 at 01:24 PM
 -- Server version: 5.6.16-1~exp1
 -- PHP Version: 7.0.28-0ubuntu0.16.04.1
 
@@ -19,21 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `license_checker`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `states`
---
-
-CREATE TABLE `states` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `country_id` int(11) NOT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `states`
@@ -93,25 +78,6 @@ INSERT INTO `states` (`id`, `country_id`, `code`, `name`, `created_at`, `updated
 (51, 1, 'WI', 'Wisconsin', NULL, NULL),
 (52, 1, 'WY', 'Wyoming', NULL, NULL);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `states`
---
-ALTER TABLE `states`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `states`
---
-ALTER TABLE `states`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
