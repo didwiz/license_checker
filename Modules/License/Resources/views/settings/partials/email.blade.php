@@ -11,7 +11,7 @@
                         <div class="row">
                             <div class="col-xs-3">
                                 <div class="avatar">
-                                    <img src="{{ asset("assets/img/faces/face-3.jpg") }}" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                    <img src="{{ asset("assets/img/faces/face-0.jpg") }}" alt="Circle Image" class="img-circle img-no-padding img-responsive">
                                 </div>
                             </div>
                             <div class="col-xs-6">
