@@ -1,96 +1,144 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+    <title>License Tracker</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+    <link href="{{ asset("assets/css/bootstrap.min.css") }}" rel="stylesheet"/>
+    <script src="{{ asset("assets/js/jquery-1.10.2.js") }}" type="text/javascript"></script>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
 
-            .full-height {
-                height: 100vh;
-            }
+    <script src="{{ asset("assets/js/bootstrap.min.js") }}" type="text/javascript"></script>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+    <!-- Styles -->
+    <style>
+        html, body {
+            background-color: #fff;
+            color: #636b6f;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 100;
+            height: 100vh;
+            margin: 0;
+        }
 
-            .position-ref {
-                position: relative;
-            }
+        .full-height {
+            height: 100vh;
+        }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+        .flex-center {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
 
-            .content {
-                text-align: center;
-            }
+        .position-ref {
+            position: relative;
+        }
 
-            .title {
-                font-size: 84px;
-            }
+        .top-right {
+            position: absolute;
+            right: 10px;
+            top: 18px;
+        }
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+        .content {
+            text-align: center;
+        }
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ route('user') }}">Dashboard</a>
-                        <a href="{{ route('user') }}">{{ Auth::user()->name }}</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+        .title {
+            font-size: 84px;
+        }
 
-            <div class="content">
-                <div class="title m-b-md">
-                    License Tracker
-                </div>
+        .links > a {
+            color: #636b6f;
+            padding: 0 25px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
+        .m-b-md {
+            margin-bottom: 30px;
+        }
+        .m-b-md2 {
+            margin-top: -60%;
+        }
+    </style>
+</head>
+<body>
+<div class="flex-center position-ref full-height">
+    @if (Route::has('login'))
+        <div class="top-right links">
+            @auth
+            <a href="{{ route('user') }}">Dashboard</a>
+            <a href="{{ route('user') }}">{{ Auth::user()->name }}</a>
+            @else
+                <a href="{{ route('login') }}">Login</a>
+                <a href="{{ route('register') }}">Register</a>
+                @endauth
         </div>
-    </body>
+
+    @endif
+
+    <div class="content">
+
+        @if(!empty($licenses) || isset($licenses))
+            <div class="title m-b-md2">
+                Licenses
+            </div>
+            <div class="table-responsive table-full-width" style="color: #000000; font-size: 20px; padding-top: 15px">
+                <table class="table table-striped" width="40%">
+                    <thead>
+                    <th>ID</th>
+                    <th>State</th>
+                    <th>License Number</th>
+                    <th>Expiration Date</th>
+                    <th>Status</th>
+                    </thead>
+                    <tbody>
+                    @foreach($licenses as $license)
+                        <tr>
+                            <td>{{ $license->id }}</td>
+                            <td>{{ $license->state->name }}</td>
+                            <td>{{ $license->number }}</td>
+                            <td>{{ $license->expiry_date }}</td>
+                            @if( $license->status == "License Active")
+                                <td style="color:green"><i
+                                            class="fas fa-check-circle"></i>&ensp;&ensp;{{ $license->status }}</td>
+                            @elseif( $license->status == "License Expiring Soon" )
+                                <td style="color:saddlebrown"><i
+                                            class="fas fa-check-circle"></i>&ensp;&ensp;{{ $license->status }}</td>
+                            @else
+                                <td style="color:red"><i
+                                            class="fas fa-times-circle"></i>&ensp;&ensp;{{ $license->status }}</td>
+                            @endif
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+
+            </div>
+        @else
+            <div class="title m-b-md">
+                License Tracker
+            </div>
+        @endif
+
+        {{--<div class="links">--}}
+        {{--<a href="https://laravel.com/docs">Documentation</a>--}}
+        {{--<a href="https://laracasts.com">Laracasts</a>--}}
+        {{--<a href="https://laravel-news.com">News</a>--}}
+        {{--<a href="https://forge.laravel.com">Forge</a>--}}
+        {{--<a href="https://github.com/laravel/laravel">GitHub</a>--}}
+        {{--</div>--}}
+    </div>
+</div>
+</body>
 </html>
