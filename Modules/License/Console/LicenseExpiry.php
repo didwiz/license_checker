@@ -11,10 +11,15 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Notification;
 use App;
+use Modules\License\Repositories\MailList\MailListRepositoryInterface as MailListRepoInterface;
+
 
 
 class LicenseExpiry extends Command
 {
+
+    private $mailListRepo;
+
     /**
      * The console command name.
      *
@@ -29,13 +34,18 @@ class LicenseExpiry extends Command
      */
     protected $description = 'Triggers a daily notification of licenses about to expire.';
 
+    const DEFAULT_MAIL_RECIPIENTS =  'mario@dettlaffinc.com';
+
+
     /**
      * Create a new command instance.
+     * LicenseExpiry constructor.
+     * @param MailListRepoInterface $MailListRepository
      *
-     * @return void
      */
-    public function __construct()
+    public function __construct(MailListRepoInterface $MailListRepository)
     {
+        $this->mailListRepo =  $MailListRepository;
         parent::__construct();
     }
 
@@ -54,22 +64,35 @@ class LicenseExpiry extends Command
                     ->get();
         $licenses_expiring = array();
         if(!empty($valid_licenses)){
+
             foreach ($valid_licenses as $license){
+
                 $expiry_date = Carbon::parse($license->expiry_date);
                 $days_left_to_expiration = $now->diffInDays($expiry_date);
 //                echo $days_left_to_expiration."\n";
+
                 if($days_left_to_expiration <= License::EXPIRATION_DAYS_NOTICE){
                     $licenses_expiring[] = $license;
                 }
             }
             //trigger an email event here
             if(!empty($licenses_expiring)){
-                $recipient = 'didwiz83@gmail.com,mario@dettlaffinc.com';
-                App\EmailMessages::sendExpiryNotice($licenses_expiring,$recipient);
-                echo "Mail(s) Sent Out!";
+                $recipients = '';
+
+                $mails = $this->mailListRepo->findAll();
+                if($mails){
+                    foreach ($mails as $key => $value) {
+
+                        $recipients .= ','.$value->email;
+                    }
+                }
+                $recipients = self::DEFAULT_MAIL_RECIPIENTS.$recipients;
+                App\EmailMessages::sendExpiryNotice($licenses_expiring,$recipients);
+                echo "Mail(s) Sent Out! \n";
             }
+        }else{
+            echo "No Data To Process \n";
         }
-        echo "No Data To Process \n";
     }
 
     /**
