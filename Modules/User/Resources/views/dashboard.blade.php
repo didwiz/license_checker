@@ -107,6 +107,7 @@
                                         <td><a class="btn btn-danger btn-sm" href="/license/revoke/{{ $license->id }}">Revoke License</a></td>
                                     </tr>
                                 @endforeach
+                                <tr><td align="right">{{ $licenses->links() }}</td></tr>
                                 </tbody>
                             </table>
 

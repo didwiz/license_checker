@@ -5,6 +5,7 @@ namespace Modules\License\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\License\Entities\License;
 use Modules\License\Entities\States;
 use Modules\License\Repositories\License\LicenseRepositoryInterface as LicenseRepoInterface;
 use Modules\License\Repositories\MailList\MailListRepositoryInterface as MailListRepoInterface;
@@ -29,7 +30,7 @@ class LicenseController extends Controller
      * @return Response
      */
     public function index(){
-        $licenses  = $this->licenseRepo->findAll();
+        $licenses  = $this->licenseRepo->paginateResults(License::DEFAULT_PAGES);
         if($licenses){
             return view('license::index',['licenses'=>$licenses]);
         }

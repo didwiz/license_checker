@@ -95,4 +95,12 @@ class LicenseRepository implements LicenseRepositoryInterface
     public function revokeLicense($id){
         return $this->license->revokeLicense($id);
     }
+
+    /**
+     * @param $pages
+     * @return mixed
+     */
+    public function paginateResults($pages){
+        return $this->license->paginate($pages);
+    }
 }

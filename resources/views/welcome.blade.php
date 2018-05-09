@@ -68,7 +68,8 @@
             margin-bottom: 30px;
         }
         .m-b-md2 {
-            margin-top: -60%;
+            /*font-size: 30px;*/
+            margin-top: -8%;
         }
     </style>
 </head>
@@ -121,7 +122,9 @@
                             @endif
                         </tr>
                     @endforeach
+                    <tr><td align="right">{{ $licenses->links() }}</td></tr>
                     </tbody>
+
                 </table>
 
             </div>

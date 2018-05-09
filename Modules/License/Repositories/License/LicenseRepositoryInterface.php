@@ -71,4 +71,9 @@ interface LicenseRepositoryInterface
      */
     public function getLicensesStats();
 
+    /**
+     * @param $pages
+     * @return mixed
+     */
+    public function paginateResults($pages);
 }

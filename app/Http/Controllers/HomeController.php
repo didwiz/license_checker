@@ -10,6 +10,7 @@ class HomeController extends Controller
 {
 
     private $licenseRepo;
+    const DEFAULT_PAGES = 2;
 
     /**
      * Create a new controller instance.
@@ -31,7 +32,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $licenses  = $this->licenseRepo->findAll();
+        $licenses  = $this->licenseRepo->paginateResults(self::DEFAULT_PAGES);
         if($licenses){
             return view('welcome',['licenses'=>$licenses]);
         }
