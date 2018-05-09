@@ -4,16 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Modules\License\Repositories\License\LicenseRepositoryInterface as LicenseRepoInterface;
 
 class HomeController extends Controller
 {
+
+    private $licenseRepo;
+    const DEFAULT_PAGES = 2;
+
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param LicenseRepoInterface $licenseRepository
      */
-    public function __construct()
+
+    public function __construct(LicenseRepoInterface $licenseRepository)
     {
+        $this->licenseRepo = $licenseRepository;
+
         $this->middleware('web');
     }
 
@@ -24,6 +32,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $licenses  = $this->licenseRepo->paginateResults(self::DEFAULT_PAGES);
+        if($licenses){
+            return view('welcome',['licenses'=>$licenses]);
+        }
         return view('welcome');
 
     }

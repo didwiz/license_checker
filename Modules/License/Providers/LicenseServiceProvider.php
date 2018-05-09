@@ -37,6 +37,9 @@ class LicenseServiceProvider extends ServiceProvider
     {
         $this->app->bind('Modules\License\Repositories\License\LicenseRepositoryInterface',
             'Modules\License\Repositories\License\LicenseRepository');
+
+        $this->app->bind('Modules\License\Repositories\MailList\MailListRepositoryInterface',
+            'Modules\License\Repositories\MailList\MailListRepository');
     }
 
     /**

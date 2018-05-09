@@ -35,6 +35,7 @@
                                     @endif
                                 </tr>
                                 @endforeach
+                                <tr><td align="right">{{ $licenses->links() }}</td></tr>
                                 </tbody>
                             </table>
 

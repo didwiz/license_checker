@@ -5,8 +5,10 @@ namespace Modules\License\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\License\Entities\License;
 use Modules\License\Entities\States;
 use Modules\License\Repositories\License\LicenseRepositoryInterface as LicenseRepoInterface;
+use Modules\License\Repositories\MailList\MailListRepositoryInterface as MailListRepoInterface;
 use Illuminate\Support\Facades\Log;
 use App\Mail\Notification;
 use Illuminate\Support\Facades\Mail;
@@ -14,10 +16,13 @@ use Illuminate\Support\Facades\Mail;
 class LicenseController extends Controller
 {
     private $licenseRepo;
+    private $mailListRepo;
 
-    public function __construct(LicenseRepoInterface $licenseRepository)
+    public function __construct(LicenseRepoInterface $licenseRepository,
+                                MailListRepoInterface $MailListRepository)
     {
         $this->licenseRepo = $licenseRepository;
+        $this->mailListRepo =  $MailListRepository;
     }
 
     /**
@@ -25,7 +30,7 @@ class LicenseController extends Controller
      * @return Response
      */
     public function index(){
-        $licenses  = $this->licenseRepo->findAll();
+        $licenses  = $this->licenseRepo->paginateResults(License::DEFAULT_PAGES);
         if($licenses){
             return view('license::index',['licenses'=>$licenses]);
         }
@@ -81,7 +86,7 @@ class LicenseController extends Controller
                 flash('Task successfully added!')->success();
                 return redirect()->route('user');
             }catch (\ErrorException $ex){
-                Log::error("update failed with Exception:",$ex->getMessage());
+                Log::error("update failed with Exception:",[$ex->getMessage()]);
                 return redirect()->route('license');
             }
         }
@@ -135,7 +140,7 @@ class LicenseController extends Controller
                     return redirect()->route('user');
                 }
             }catch (\ErrorException $ex){
-                Log::error("update failed with Exception:",$ex->getMessage());
+                Log::error("update failed with Exception:",[$ex->getMessage()]);
                 flash('Could Not Revoke License')->error();
                 return redirect()->route('user');
             }

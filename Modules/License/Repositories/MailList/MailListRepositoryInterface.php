@@ -6,13 +6,13 @@
  * Time: 6:30 PM
  */
 
-namespace Modules\License\Repositories\License;
+namespace Modules\License\Repositories\MailList;
 
 
-interface LicenseRepositoryInterface
+interface MailListRepositoryInterface
 {
     /**
-     * Returns all the license entries.
+     * Returns all the mailListentries.
      *
      * @return \Modules\License\Entities\License
      */
@@ -36,15 +36,15 @@ interface LicenseRepositoryInterface
     public function store($id, array $input);
 
     /**
-     * Creates a license entry with the given data.
+     * Creates a mailListentry with the given data.
      *
      * @param  array  $data
      * @return \Modules\License\Entities\License
      */
-    public function createLicense(array $data);
+    public function addMail(array $data);
 
     /**
-     * Updates the license entry with the given data.
+     * Updates the mailList entry with the given data.
      *
      * @param  int  $id
      * @param  array  $data
@@ -53,27 +53,13 @@ interface LicenseRepositoryInterface
     public function update($id, array $data);
 
     /**
-     * Deletes the license entry.
+     * Deletes the mailListentry.
      *
      * @param  int  $id
      * @return bool
      */
     public function delete($id);
 
-    /**
-     * @param $status
-     * @return mixed
-     */
-    public function getTotalLicenses($status);
 
-    /**
-     * @return mixed
-     */
-    public function getLicensesStats();
 
-    /**
-     * @param $pages
-     * @return mixed
-     */
-    public function paginateResults($pages);
 }

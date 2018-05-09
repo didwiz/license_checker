@@ -24,6 +24,9 @@ class License extends Model
     const LICENSE_EXPIRED = 5;
     const LICENSE_EXPIRING_SOON = 6;
 
+    const DEFAULT_PAGES = 10;
+
+
     const EXPIRATION_DAYS_NOTICE = 30;
 
 
@@ -116,6 +119,10 @@ class License extends Model
             return true;
         }
         return false;
+    }
+
+    public function paginateResults($pages){
+        return static::paginate($pages);
     }
 
 }

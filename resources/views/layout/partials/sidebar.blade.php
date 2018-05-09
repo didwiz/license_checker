@@ -27,6 +27,12 @@
                         <p>Licenses</p>
                     </a>
                 </li>
+                <li>
+                    <a href="/settings">
+                        <i class="ti-settings"></i>
+                        <p>Settings</p>
+                    </a>
+                </li>
 
             </ul>
         </div>
