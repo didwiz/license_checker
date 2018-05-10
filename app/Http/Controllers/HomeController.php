@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
 
     private $licenseRepo;
-    const DEFAULT_PAGES = 2;
+    const DEFAULT_PAGES = 10;
 
     /**
      * Create a new controller instance.

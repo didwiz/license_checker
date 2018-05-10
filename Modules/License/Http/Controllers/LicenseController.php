@@ -2,6 +2,7 @@
 
 namespace Modules\License\Http\Controllers;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -44,17 +45,37 @@ class LicenseController extends Controller
      */
     public function create()
     {
-        return view('license::create');
+        $states = States::all();
+
+        return view('license::create',['states'=>$states]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created License in storage.
      * @param  Request $request
      * @return Response
      */
     public function store(Request $request)
     {
-        /** TODO: To be implemented */
+        $data = $request->post();
+        unset($data['_token']);
+        if(!empty($data)){
+            try{
+                $this->licenseRepo->createLicense($data);
+                flash('New License Created!')->success();
+                return redirect()->route('user');
+            }catch (\ErrorException $ex){
+                Log::error("Operation failed with Exception:",[$ex->getMessage()]);
+                flash('An error Occurred')->warning();
+                return redirect()->route('create');
+            }catch(QueryException $ex){
+                Log::error("Operation failed with Exception:",[$ex->getMessage()]);
+                flash('An error Occurred: EXISTING LICENSE NUMBER ENTERED')->warning();
+                return redirect()->route('create');
+            }
+        }
+        flash('An error occurred')->warning();
+        return redirect()->route('create');
     }
 
     /**
@@ -66,7 +87,8 @@ class LicenseController extends Controller
         $license = $this->licenseRepo->find($id);
         /** TODO: change this to repository pattern  */
         $states = States::all();
-        return view('license::update',['id'=>$id,'license'=>$license, 'states'=>$states]);
+
+        return view('license::update',['id'=>$id,'license'=>$license, 'states'=>$states, 'status'=>License::statuses]);
     }
 
     /**
@@ -83,7 +105,7 @@ class LicenseController extends Controller
         if(!empty($data)){
             try{
                 $this->licenseRepo->update($id,$data);
-                flash('Task successfully added!')->success();
+                flash('License successfully Updated!')->success();
                 return redirect()->route('user');
             }catch (\ErrorException $ex){
                 Log::error("update failed with Exception:",[$ex->getMessage()]);

@@ -7,6 +7,8 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'license', 'namespace'
     Route::get('edit/{id}', 'LicenseController@show');
     Route::get('revoke/{id}', 'LicenseController@revokeLicense');
     Route::post('sendreport', 'LicenseController@sendReport');
+    Route::get('create', 'LicenseController@create')->name('create');
+    Route::post('add', 'LicenseController@store');
 
 });
 
