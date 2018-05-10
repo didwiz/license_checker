@@ -3,7 +3,7 @@
 namespace Modules\License\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\Response;
 class License extends Model
 {
     protected $fillable = [
@@ -24,7 +24,7 @@ class License extends Model
     const LICENSE_EXPIRED = 5;
     const LICENSE_EXPIRING_SOON = 6;
 
-    const DEFAULT_PAGES = 10;
+    const DEFAULT_PAGES = 3;
 
 
     const EXPIRATION_DAYS_NOTICE = 30;
@@ -125,4 +125,30 @@ class License extends Model
         return static::paginate($pages);
     }
 
+    public function download()
+    {
+        $headers = [
+            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0'
+            ,   'Content-type'        => 'text/csv'
+            ,   'Content-Disposition' => 'attachment; filename=galleries.csv'
+            ,   'Expires'             => '0'
+            ,   'Pragma'              => 'public'
+        ];
+
+        $list = License::all()->toArray();
+
+        # add headers for each column in the CSV download
+        array_unshift($list, array_keys($list[0]));
+
+        $callback = function() use ($list)
+        {
+            $FH = fopen('php://output', 'w');
+            foreach ($list as $row) {
+                fputcsv($FH, $row);
+            }
+            fclose($FH);
+        };
+
+        return Response::stream($callback, 200, $headers);
+    }
 }

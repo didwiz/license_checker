@@ -27,6 +27,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ route('logout') }}">Log Out</a></li>
+                            <li><a href="{{ route('create-admin') }}">Add Admin</a></li>
                         </ul>
                     </li>
                 </ul>
