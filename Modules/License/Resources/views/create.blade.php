@@ -8,6 +8,16 @@
                     <h4 class="title">Add New License</h4>
                 </div>
                 <div class="content">
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form method="post" name="add_license" action="/license/add">
                         {{ csrf_field() }}
                         <div class="row">

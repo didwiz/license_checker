@@ -100,6 +100,12 @@ class SettingsController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function addEmail(Request $request){
+
+        $request->validate([
+
+            'name' => 'required|max:255',
+            'email' => 'required|e-mail|unique:mailing_list',
+        ]);
         $post_data = $request->post();
         if(!empty($post_data)){
             try{

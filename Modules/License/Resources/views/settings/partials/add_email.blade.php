@@ -7,6 +7,15 @@
             <h4 class="title">Add Email</h4>
         </div>
         <div class="content">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form method="post" name="add-email" action={{ URL::to("/settings/add-email") }}>
                 {{ csrf_field() }}
                 <div class="row">
