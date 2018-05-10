@@ -103,4 +103,11 @@ class LicenseRepository implements LicenseRepositoryInterface
     public function paginateResults($pages){
         return $this->license->paginate($pages);
     }
+
+    /**
+     * @return mixed
+     */
+    public function downloadCSV(){
+        return $this->license->downloadCSV();
+    }
 }

@@ -127,7 +127,7 @@
                                 <tr>
                                     <td align="right">{{ $licenses->links() }}</td>
                                     <td>
-                                        <a style="font-weight: bold" href="#">Export CSV<i class="ti-download"></i></a>
+                                        <a style="font-weight: bold" href="/license/download-csv">Export CSV<i class="ti-download"></i></a>
                                         </small>
                                     </td>
                                 </tr>

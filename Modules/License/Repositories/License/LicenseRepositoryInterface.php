@@ -76,4 +76,9 @@ interface LicenseRepositoryInterface
      * @return mixed
      */
     public function paginateResults($pages);
+
+    /**
+     * @return mixed
+     */
+    public function downloadCSV();
 }

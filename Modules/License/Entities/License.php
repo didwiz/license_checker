@@ -4,6 +4,7 @@ namespace Modules\License\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Response;
+
 class License extends Model
 {
     protected $fillable = [
@@ -31,27 +32,29 @@ class License extends Model
 
 
     const statuses = [
-        self::LICENSE_MISSING =>'No License Found',
-        self::LICENSE_ACTIVE =>'License Active',
-        self::LICENSE_REVOKED =>'License Revoked',
-        self::LICENSE_INVALID =>'License Invalid',
-        self::LICENSE_VALID =>'License Valid',
-        self::LICENSE_EXPIRED =>'License Expired',
-        self::LICENSE_EXPIRING_SOON =>'License Expiring Soon'
+        self::LICENSE_MISSING => 'No License Found',
+        self::LICENSE_ACTIVE => 'License Active',
+        self::LICENSE_REVOKED => 'License Revoked',
+        self::LICENSE_INVALID => 'License Invalid',
+        self::LICENSE_VALID => 'License Valid',
+        self::LICENSE_EXPIRED => 'License Expired',
+        self::LICENSE_EXPIRING_SOON => 'License Expiring Soon'
     ];
 
     /**
      * 1:1 relationship between licenses and states
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function state(){
+    public function state()
+    {
         return $this->belongsTo('\Modules\License\Entities\States');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function findAll(){
+    public function findAll()
+    {
         return static::all();
     }
 
@@ -60,7 +63,8 @@ class License extends Model
      * @param $status
      * @return mixed
      */
-    public function getStatusAttribute($status){
+    public function getStatusAttribute($status)
+    {
         return self::statuses[$status];
     }
 
@@ -69,7 +73,8 @@ class License extends Model
      * @param $id
      * @return mixed
      */
-    public function findLicense($id){
+    public function findLicense($id)
+    {
         return static::find($id);
     }
 
@@ -78,7 +83,8 @@ class License extends Model
      * @param array $data
      * @return mixed
      */
-    public function createLicense(array $data){
+    public function createLicense(array $data)
+    {
         return static::create($data);
     }
 
@@ -87,10 +93,11 @@ class License extends Model
      * @param $id
      * @return bool
      */
-    public function revokeLicense($id){
+    public function revokeLicense($id)
+    {
 
-        $license = License::where('id', $id)->update(['status'=>self::LICENSE_REVOKED]);
-        if($license){
+        $license = License::where('id', $id)->update(['status' => self::LICENSE_REVOKED]);
+        if ($license) {
             return true;
         }
         return false;
@@ -101,8 +108,9 @@ class License extends Model
      * @param $status
      * @return int
      */
-    public function getTotalLicenses($status){
-        $licenses_total  = License::where('status', $status)->get()->count();
+    public function getTotalLicenses($status)
+    {
+        $licenses_total = License::where('status', $status)->get()->count();
         return $licenses_total ?? 0;
     }
 
@@ -112,36 +120,52 @@ class License extends Model
      * @param $data
      * @return bool
      */
-    public function edit($id,$data)
+    public function edit($id, $data)
     {
         $license = License::where('id', $id)->update($data);
-        if($license){
+        if ($license) {
             return true;
         }
         return false;
     }
 
-    public function paginateResults($pages){
+    public function paginateResults($pages)
+    {
         return static::paginate($pages);
     }
 
-    public function download()
+    public function downloadCSV()
     {
         $headers = [
-            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0'
-            ,   'Content-type'        => 'text/csv'
-            ,   'Content-Disposition' => 'attachment; filename=galleries.csv'
-            ,   'Expires'             => '0'
-            ,   'Pragma'              => 'public'
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0'
+            , 'Content-type' => 'text/csv'
+            , 'Content-Disposition' => 'attachment; filename=Licenses.csv'
+            , 'Expires' => '0'
+            , 'Pragma' => 'public'
         ];
 
-        $list = License::all()->toArray();
 
+        $list = [];
+        $lists = License::all();
+
+        foreach ($lists as $key => $value) {
+            if ($value->state_id) {
+                $value->state_id = $value->state->name;
+            }
+            $value = $value->toArray();
+
+            $value['state'] = $value['state_id'];
+            unset($value['state_id']);
+            unset($value['created_at']);
+            unset($value['updated_at']);
+            unset($value['id']);
+            $list[] = $value;
+
+        }
         # add headers for each column in the CSV download
         array_unshift($list, array_keys($list[0]));
 
-        $callback = function() use ($list)
-        {
+        $callback = function () use ($list) {
             $FH = fopen('php://output', 'w');
             foreach ($list as $row) {
                 fputcsv($FH, $row);

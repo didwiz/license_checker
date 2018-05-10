@@ -170,4 +170,16 @@ class LicenseController extends Controller
         flash('Could Not Revoke License, No data passed')->error();
         return redirect()->route('user');
     }
+
+    /**
+     * @return mixed
+     */
+    public function exportCSV(){
+        $licenses  = $this->licenseRepo->findAll();
+        if(empty($licenses)){
+            flash('No License Data To Download')->error();
+            return redirect()->route('user');
+        }
+        return $this->licenseRepo->downloadCSV();
+    }
 }
