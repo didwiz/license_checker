@@ -94,7 +94,7 @@
             <div class="title m-b-md2">
                 Licenses
             </div>
-            <div class="table-responsive table-full-width" style="color: #000000; font-size: 20px; padding-top: 15px">
+            <div class="table-responsive table-full-width" style="color: #000000; font-weight:normal; font-size: 20px; padding-top: 15px">
                 <table class="table table-striped" width="40%">
                     <thead>
                     <th>ID</th>

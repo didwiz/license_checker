@@ -66,7 +66,8 @@ class LicenseController extends Controller
         $license = $this->licenseRepo->find($id);
         /** TODO: change this to repository pattern  */
         $states = States::all();
-        return view('license::update',['id'=>$id,'license'=>$license, 'states'=>$states]);
+
+        return view('license::update',['id'=>$id,'license'=>$license, 'states'=>$states, 'status'=>License::statuses]);
     }
 
     /**
