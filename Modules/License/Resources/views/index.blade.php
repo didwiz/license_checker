@@ -1,6 +1,11 @@
 @extends('layout.main')
 
 @section('content')
+
+    <div style="padding: 20px; margin-left:8px;">
+        <a href="/license/create" class="btn btn-info btn-fill btn-wd" href="" style="color:black"><i class="ti-plus"></i>&nbsp;Add New License</a>
+    </div>
+
     <div class="content">
         <div class="container-fluid">
             <div class="row">

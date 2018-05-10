@@ -27,7 +27,8 @@ class Kernel extends ConsoleKernel
     {
 
         $schedule->command('license:notice')
-            ->dailyAt('14:00');
+            ->dailyAt('9:00')
+            ->timezone('EST');
     }
 
     /**

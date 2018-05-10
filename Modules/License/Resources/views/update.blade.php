@@ -14,8 +14,18 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>License Name</label>
-                            <input type="text" class="form-control border-input" name="name" disabled placeholder="Company"
+                            <input type="text" class="form-control border-input" name="name" disabled placeholder="License Name"
                                    value="{{ $license->name }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>License Number</label>
+                            <input type="text" class="form-control border-input" name="number" placeholder="License Number"
+                                   value="{{ $license->number }}">
                         </div>
                     </div>
                 </div>
