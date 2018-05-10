@@ -33,7 +33,18 @@
                         <p>Settings</p>
                     </a>
                 </li>
-
+                {{--<li class="dropdown">--}}
+                    {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}
+                        {{--<i class="ti-settings"></i>--}}
+                        {{--<b>{{ Auth::user()->name }}</b>--}}
+                        {{--<b class="caret"></b>--}}
+                    {{--</a>--}}
+                    {{--<ul class="dropdown-content">--}}
+                        {{--<li><a href="#">Add User</a></li>--}}
+                        {{--<li><a href="#">Add User</a></li>--}}
+                        {{--<li><a href="#">Add User</a></li>--}}
+                    {{--</ul>--}}
+                {{--</li>--}}
             </ul>
         </div>
     </div>

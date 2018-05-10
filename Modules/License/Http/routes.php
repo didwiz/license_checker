@@ -9,6 +9,8 @@ Route::group(['middleware' => ['web','auth'], 'prefix' => 'license', 'namespace'
     Route::post('sendreport', 'LicenseController@sendReport');
     Route::get('create', 'LicenseController@create')->name('create');
     Route::post('add', 'LicenseController@store');
+    Route::get('download-csv', 'LicenseController@exportCSV');
+
 
 });
 

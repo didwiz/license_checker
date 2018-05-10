@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\License\Repositories\License\LicenseRepositoryInterface as LicenseRepoInterface;
 use Modules\License\Entities\License;
-
+use Modules\User\Entities\User;
 
 class UserController extends Controller
 {
@@ -24,11 +24,12 @@ class UserController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index(){
-        $licenses  = $this->licenseRepo->paginateResults(License::DEFAULT_PAGES);
+    public function index()
+    {
+        $licenses = $this->licenseRepo->paginateResults(License::DEFAULT_PAGES);
         $licenses_stats = $this->licenseRepo->getLicensesStats();
-        if($licenses) {
-            return view('user::dashboard', ['licenses' => $licenses,'licenses_stat'=>$licenses_stats]);
+        if ($licenses) {
+            return view('user::dashboard', ['licenses' => $licenses, 'licenses_stat' => $licenses_stats]);
         }
         flash('No Available License(s) Found')->error();
         return view('license::missing_license');
@@ -38,7 +39,8 @@ class UserController extends Controller
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create(){
+    public function create()
+    {
         return view('user::create');
     }
 
@@ -47,7 +49,8 @@ class UserController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         // stub
     }
 
@@ -55,7 +58,8 @@ class UserController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show(){
+    public function show()
+    {
         return view('user::show');
     }
 
@@ -63,7 +67,8 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit(){
+    public function edit()
+    {
         return view('user::edit');
     }
 
@@ -84,5 +89,49 @@ class UserController extends Controller
     public function destroy()
     {
         //stub
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function createAdmin()
+    {
+        return view("user::create");
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addAdmin(Request $request)
+    {
+        /**
+         * Todo: Ensure to add validation for forms, currently there is no validation in this system!
+         */
+        $data = $request->post();
+        unset($data['_token']);
+        if (!empty($data)) {
+            try {
+                User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => bcrypt($data['password']),
+                ]);
+
+                flash('New User Created!')->success();
+                return redirect()->route('user');
+            } catch (\Exception $ex) {
+                Log::error("Operation failed with Exception:", [$ex->getMessage()]);
+                flash('An error Occurred')->warning();
+                return redirect()->route('create-admin');
+            }
+        }
+        flash('An error occurred')->warning();
+        return redirect()->route('create-admin');
+    }
+
+    public function showAdmins()
+    {
+
     }
 }

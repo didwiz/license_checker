@@ -82,7 +82,7 @@
             <a href="{{ route('user') }}">{{ Auth::user()->name }}</a>
             @else
                 <a href="{{ route('login') }}">Login</a>
-                <a href="{{ route('register') }}">Register</a>
+                {{--<a href="{{ route('register') }}">Register</a>--}}
                 @endauth
         </div>
 
@@ -130,7 +130,7 @@
             </div>
         @else
             <div class="title m-b-md">
-                License Tracker
+                Absolute RX License Tracker
             </div>
         @endif
 

@@ -3,7 +3,8 @@
 @section('content')
 
     <div style="padding: 20px; margin-left:8px;">
-    <a href="/license/create" class="btn btn-info btn-fill btn-wd" href="" style="color:black"><i class="ti-plus"></i>&nbsp;Add New License</a>
+        <a href="/license/create" class="btn btn-info btn-fill btn-wd" href="" style="color:black"><i
+                    class="ti-plus"></i>&nbsp;Add New License</a>
     </div>
 
     <div class="content">
@@ -39,7 +40,7 @@
                                             <i class="ti-check-box"></i>
                                         </div>
                                         @break
-                                            @endswitch
+                                        @endswitch
                                     </div>
                                     <div class="col-xs-7">
                                         <div class="numbers">
@@ -49,7 +50,7 @@
                                     </div>
                                 </div>
                                 <div class="footer">
-                                    <hr />
+                                    <hr/>
                                     <div class="stats">
                                         <i class="ti-reload"></i> Updated now
                                     </div>
@@ -72,18 +73,21 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <input type="text" class="form-control border-input" name="email" placeholder="Enter Email Address" value="testmail@gmail.com">
+                                            <input type="text" class="form-control border-input" name="email"
+                                                   placeholder="Enter Valid Email Address">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-success btn-fill btn-wd">Send Report</button>
+                                            <button type="submit" class="btn btn-success btn-fill btn-wd">Send Report
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>
                             </form>
                         </div>
+                        <hr>
                         <div class="content table-responsive table-full-width">
                             <table class="table table-striped">
                                 <thead>
@@ -102,17 +106,31 @@
                                         <td>{{ $license->number }}</td>
                                         <td>{{ $license->expiry_date }}</td>
                                         @if( $license->status == "License Active")
-                                            <td style="color:green"><i class="fas fa-check-circle"></i>&ensp;&ensp;{{ $license->status }}</td>
+                                            <td style="color:green"><i
+                                                        class="fas fa-check-circle"></i>&ensp;&ensp;{{ $license->status }}
+                                            </td>
                                         @elseif( $license->status == "License Expiring Soon" )
-                                            <td style="color:saddlebrown"><i class="fas fa-check-circle"></i>&ensp;&ensp;{{ $license->status }}</td>
+                                            <td style="color:saddlebrown"><i
+                                                        class="fas fa-check-circle"></i>&ensp;&ensp;{{ $license->status }}
+                                            </td>
                                         @else
-                                            <td style="color:red"><i class="fas fa-times-circle"></i>&ensp;&ensp;{{ $license->status }}</td>
+                                            <td style="color:red"><i
+                                                        class="fas fa-times-circle"></i>&ensp;&ensp;{{ $license->status }}
+                                            </td>
                                         @endif
-                                        <td><a class="btn btn-default btn-sm" href="/license/edit/{{ $license->id }}">Edit</a></td>
-                                        <td><a class="btn btn-danger btn-sm" href="/license/revoke/{{ $license->id }}">Revoke License</a></td>
+                                        <td><a class="btn btn-default btn-sm" href="/license/edit/{{ $license->id }}">Edit</a>
+                                        </td>
+                                        <td><a class="btn btn-danger btn-sm" href="/license/revoke/{{ $license->id }}">Revoke
+                                                License</a></td>
                                     </tr>
                                 @endforeach
-                                <tr><td align="right">{{ $licenses->links() }}</td></tr>
+                                <tr>
+                                    <td align="right">{{ $licenses->links() }}</td>
+                                    <td>
+                                        <a style="font-weight: bold" href="/license/download-csv">Export CSV<i class="ti-download"></i></a>
+                                        </small>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
 
