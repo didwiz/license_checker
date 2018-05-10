@@ -57,6 +57,17 @@ class LicenseController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+
+            'name' => 'required|max:255',
+            'number' => 'required|unique:license',
+            'state_id' => 'required|numeric',
+            'status' => 'required|numeric',
+            'expiry_date' => 'required|date',
+            'subscription_date' => 'required|date',
+        ]);
+
         $data = $request->post();
         unset($data['_token']);
         if(!empty($data)){
@@ -99,6 +110,12 @@ class LicenseController extends Controller
      */
     public function update($id,Request $request)
     {
+        $request->validate([
+//            'name' => 'required|max:255',
+            'state_id' => 'required|numeric',
+            'status' => 'required|numeric',
+            'expiry_date' => 'required|date',
+        ]);
         $data = $request->post();
 
         unset($data['_token']);
@@ -172,7 +189,7 @@ class LicenseController extends Controller
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Http\RedirectResponse|mixed
      */
     public function exportCSV(){
         $licenses  = $this->licenseRepo->findAll();

@@ -108,6 +108,13 @@ class UserController extends Controller
         /**
          * Todo: Ensure to add validation for forms, currently there is no validation in this system!
          */
+        $request->validate([
+
+            'name' => 'required|max:255',
+            'email' => 'required|e-mail|unique:users',
+            'password' => 'required',
+        ]);
+
         $data = $request->post();
         unset($data['_token']);
         if (!empty($data)) {
